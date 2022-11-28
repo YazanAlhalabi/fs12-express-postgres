@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  express:
+    container_name: fs12-typeorm-backend
+    build: .
+    ports:
+      - 9000:9000
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+      - POSTGRES_HOST=db
+    volumes:
+      - ./:/var/www/html
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+    volumes:
+      - post:/var/lib/postgresql/data
+volumes:
+  post:
